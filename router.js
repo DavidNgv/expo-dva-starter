@@ -8,12 +8,18 @@ import {
 
 import { connect } from 'dva'
 
-import AppNavigator from './navigation/AppNavigator'
-
 //Expo
-import { AppLoading, KeepAwake, Notifications } from 'expo';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-import cacheAssetsAsync from './utilities/cacheAssetsAsync';
+import { AppLoading, KeepAwake, Notifications } from 'expo'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
+
+//Native Base
+import { StyleProvider } from 'native-base'
+import getTheme from './native-base-theme/components'
+import platform from './native-base-theme/variables/platform'
+
+
+import AppNavigator from './navigation/AppNavigator'
+import cacheAssetsAsync from './utilities/cacheAssetsAsync'
 
 
 function getCurrentScreen(navigationState) {
@@ -98,7 +104,9 @@ class Router extends PureComponent {
 
     if (this.state.appIsReady) {
       return (
-        <AppNavigator navigation={navigation} />
+        <StyleProvider style={getTheme(platform)}>
+          <AppNavigator navigation={navigation} />
+        </StyleProvider>
       )
     } else {
       return <AppLoading />;
